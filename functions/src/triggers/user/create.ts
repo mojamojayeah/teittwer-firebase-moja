@@ -10,15 +10,15 @@ export const createUser = functions.auth.user().onCreate(async (data) => {
   const userRef = db.collection('users').doc(uid)
   const userSnapshot = await userRef.get()
   if (userSnapshot.exists) {
-    return {message: 'already create ${uid}'}
+    return { message: 'already create ${uid}' }
   }
-  
-  const user ={
+
+  const user = {
     name: data.displayName ?? '未設定',
-    profile:'',
+    profile: '',
     thubmnailURL: null,
     createdAt: FieldValue.serverTimestamp(),
-    updateAt: FieldValue.serverTimestamp(),
+    updatedAt: FieldValue.serverTimestamp(),
   }
 
   await userRef.set(user)
